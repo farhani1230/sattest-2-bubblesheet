@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SAT Bubble Sheet</title>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    emailjs.init({
+      publicKey: "LWROgRXAZxAcG__eZ",
+      debug: true
+    });
+  </script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .header { display: flex; align-items: center; gap: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
+    .brand-title { font-size: 24px; font-weight: bold; color: #003366; }
+    h2 { color: #333; }
+    .section { margin-top: 30px; }
+    .question-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px 40px; margin-top: 10px; }
+    .question-column { display: flex; flex-direction: column; }
+    .question { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+    select, input[type="text"] { width: 60px; }
+    input.wide { width: 125px; }
+    hr { margin-top: 30px; margin-bottom: 30px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand-title">ScoreSummit Test Prep</div>
+  </div>
+
+  <h1>SAT Practice Test Bubble Sheet</h1>
+
+  <form id="bubbleForm">
+    <label>Name:</label>
+    <input type="text" name="student_name" required class="wide"><br><br>
+
+    <label>Email:</label>
+    <input type="email" name="student_email" required class="wide"><br><br>
+
+    <label>Location:</label>
+    <input type="text" name="location" required class="wide"><br><br>
+
+    <label>Date:</label>
+    <input type="date" name="test_date" required><br><br>
+
+    <label>Test Name:</label>
+    <input type="text" name="test_name" required class="wide"><br><br>
+
+    <div class="section">
+      <h2>Reading & Writing (Module 1)</h2>
+      <div class="question-grid" id="rw1"></div>
+    </div>
+    <hr>
+    <div class="section">
+      <h2>Reading & Writing (Module 2)</h2>
+      <div class="question-grid" id="rw2"></div>
+    </div>
+    <hr>
+    <div class="section">
+      <h2>Math (Module 1)</h2>
+      <div class="question-grid" id="math1"></div>
+    </div>
+    <hr>
+    <div class="section">
+      <h2>Math (Module 2)</h2>
+      <div class="question-grid" id="math2"></div>
+    </div>
+
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2 id="result"></h2>
+  <div id="feedback"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const answerKey = {};
+
+      const rw1Answers = ["B", "C", "C", "B", "D", "C", "B", "D", "D", "A", "A", "A", "A", "D", "C", "B", "B", "A", "A", "A", "B", "A", "C", "C", "C", "D", "C", "C", "B", "C", "C", "D", "D"];
+      for (let i = 1; i <= 33; i++) answerKey[`rw1_q${i}`] = rw1Answers[i - 1];
+
+      const rw2Answers = ["C", "B", "D", "B", "C", "C", "A", "D", "B", "A", "B", "A", "C", "D", "C", "B", "B", "B", "C", "A", "D", "A", "C", "C", "A", "B", "A", "B", "D", "D", "A", "C", "B"];
+      for (let i = 1; i <= 33; i++) answerKey[`rw2_q${i}`] = rw2Answers[i - 1];
+
+      const math1Answers = ["C", "C", "D", "D", "C", "180", "5", "A", "B", "A", "B", "D", "25/4", "182", "D", "A", "B", "C", "A", "8", "29/2", "B", "C", "A", "B", "A", "9.87"];
+      for (let i = 1; i <= 27; i++) answerKey[`math1_q${i}`] = math1Answers[i - 1];
+
+      const math2Answers = ["A", "A", "A", "D", "B", "79", "55", "C", "A", "C", "B", "A", "240", "2", "B", "C", "D", "C", "B", "986", "35", "D", "B", "C", "C", "B", "113"];
+      for (let i = 1; i <= 27; i++) answerKey[`math2_q${i}`] = math2Answers[i - 1];
+
+      function generateQuestions(count, containerId, prefix) {
+        const container = document.getElementById(containerId);
+        for (let i = 1; i <= count; i++) {
+          if ((i - 1) % 20 === 0) {
+            const col = document.createElement("div");
+            col.className = "question-column";
+            container.appendChild(col);
+          }
+          const question = document.createElement("div");
+          question.className = "question";
+          const id = `${prefix}${i}`;
+          const correct = answerKey[id];
+
+          let inputHTML = "";
+
+          if (/^[ABCD]$/.test(correct)) {
+            inputHTML = `
+              <select name="${id}" id="${id}">
+                <option value="">--</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+              </select>`;
+          } else {
+            inputHTML = `<input type="text" name="${id}" id="${id}">`;
+          }
+
+          question.innerHTML = `<label for="${id}">Q${i}:</label> ${inputHTML}`;
+          container.lastChild.appendChild(question);
+        }
+      }
+
+      generateQuestions(33, "rw1", "rw1_q");
+      generateQuestions(33, "rw2", "rw2_q");
+      generateQuestions(27, "math1", "math1_q");
+      generateQuestions(27, "math2", "math2_q");
+
+      document.getElementById("bubbleForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+
+        let sectionScores = { rw1: 0, rw2: 0, math1: 0, math2: 0 };
+        const sectionTotals = { rw1: 33, rw2: 33, math1: 27, math2: 27 };
+
+        let totalScore = 0;
+        const totalQuestions = 120;
+        let responses = {};
+        let detailedFeedback = "Question Results:\n\n";
+
+        for (let key in answerKey) {
+          let studentAnswer = (formData.get(key) || "[blank]").trim();
+          const correctAnswer = answerKey[key];
+          const isCorrect = studentAnswer === correctAnswer;
+          responses[key] = studentAnswer;
+
+          if (isCorrect) {
+            if (key.startsWith("rw1_")) sectionScores.rw1++;
+            else if (key.startsWith("rw2_")) sectionScores.rw2++;
+            else if (key.startsWith("math1_")) sectionScores.math1++;
+            else if (key.startsWith("math2_")) sectionScores.math2++;
+            totalScore++;
+          }
+
+          detailedFeedback += `${key}: Your answer: ${studentAnswer} — Correct answer: ${correctAnswer} — ${isCorrect ? "Correct" : "Incorrect"}\n`;
+        }
+
+        document.getElementById("feedback").innerHTML = `<pre>${detailedFeedback}</pre>`;
+        document.getElementById("result").innerText = `Total Score: ${totalScore} / ${totalQuestions}`;
+
+        const scoreSummary = `
+Reading & Writing Module 1: ${sectionScores.rw1} / ${sectionTotals.rw1}
+Reading & Writing Module 2: ${sectionScores.rw2} / ${sectionTotals.rw2}
+Math Module 1: ${sectionScores.math1} / ${sectionTotals.math1}
+Math Module 2: ${sectionScores.math2} / ${sectionTotals.math2}
+Total: ${totalScore} / ${totalQuestions}`;
+
+        function updateOrCreateHiddenInput(name, value) {
+          let input = form.querySelector(`input[name="${name}"]`);
+          if (!input) {
+            input = document.createElement("input");
+            input.type = "hidden";
+            input.name = name;
+            form.appendChild(input);
+          }
+          input.value = value;
+        }
+
+        updateOrCreateHiddenInput("score_summary", scoreSummary);
+        updateOrCreateHiddenInput("responses", JSON.stringify(responses, null, 2));
+        updateOrCreateHiddenInput("detailed_feedback", detailedFeedback);
+
+        emailjs.sendForm("service_23boe08", "template_66wns3d", form)
+          .then(() => {
+            alert("✅ Email sent successfully!");
+          })
+          .catch((err) => {
+            alert("❌ Email failed to send. Check console for details.");
+            console.error("EMAIL ERROR:", err);
+          });
+      });
+    });
+  </script>
+</body>
+</html>
