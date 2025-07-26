@@ -5,7 +5,8 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script type="text/javascript">
     emailjs.init({
-      publicKey: "LWROgRXAZxAcG__eZ",
+      publicKey: "mmsSpkLEtqFBF4Lpw",
+      appID: "app_5JTXJZo5Rw6pU0UpK",
       debug: true
     });
   </script>
@@ -77,16 +78,16 @@
     document.addEventListener("DOMContentLoaded", function () {
       const answerKey = {};
 
-      const rw1Answers = ["A", "B", "B", "D", "B", "D", "B", "C", "B", "B", "D", "A", "D", "B", "C", "B", "A", "B", "A", "C", "A", "D", "B", "D", "B", "B", "D", "D", "B", "D", "A", "C", "D"];
+      const rw1Answers = ["D", "B", "B", "D", "D", "A", "B", "B", "D", "D", "A", "A", "A", "C", "B", "D", "D", "B", "A", "C", "D", "D", "D", "C", "B", "D", "D", "C", "C", "B", "A", "B", "C"];
       for (let i = 1; i <= 33; i++) answerKey[`rw1_q${i}`] = rw1Answers[i - 1];
 
-      const rw2Answers = ["C", "D", "A", "A", "C", "C", "B", "A", "A", "D", "A", "D", "D", "D", "D", "B", "A", "A", "B", "A", "C", "B", "A", "C", "C", "B", "C", "D", "D", "A", "D", "D", "A"];
+      const rw2Answers = ["C", "D", "C", "B", "B", "C", "D", "C", "C", "C", "C", "C", "C", "D", "D", "B", "A", "D", "C", "A", "A", "C", "B", "A", "D", "B", "D", "A", "B", "C", "D", "B", "C"];
       for (let i = 1; i <= 33; i++) answerKey[`rw2_q${i}`] = rw2Answers[i - 1];
 
-      const math1Answers = ["C", "B", "D", "B", "B", "4", "29", "C", "B", "B", "C", "D", "6", "4.51", "C", "D", "B", "D", "A", "0.3928", "336", "B", "D", "D", "A", "A", "25"];
+      const math1Answers = ["A", "D", "D", "D", "A", "31", "11", "D", "B", "B", "A", "B", "1/2", "7.5", "B", "C", "D", "D", "D", "189/5", "-24", "D", "A", "C", "D", "A", "54"];
       for (let i = 1; i <= 27; i++) answerKey[`math1_q${i}`] = math1Answers[i - 1];
 
-      const math2Answers = ["B", "B", "B", "B", "D", "6", "30", "D", "B", "A", "C", "D", "14.66", "4205", "A", "A", "B", "B", "D", "20", "66", "D", "D", "D", "A", "C", "4176"];
+      const math2Answers = ["B", "A", "B", "A", "B", "6", "10", "B", "A", "A", "D", "C", "774", "5", "B", "A", "D", "B", "A", "7/24", "1677", "B", "A", "D", "A", "A", "-28"];
       for (let i = 1; i <= 27; i++) answerKey[`math2_q${i}`] = math2Answers[i - 1];
 
       function generateQuestions(count, containerId, prefix) {
@@ -182,7 +183,7 @@ Total: ${totalScore} / ${totalQuestions}`;
         updateOrCreateHiddenInput("responses", JSON.stringify(responses, null, 2));
         updateOrCreateHiddenInput("detailed_feedback", detailedFeedback);
 
-        emailjs.sendForm("service_23boe08", "template_66wns3d", form)
+        emailjs.sendForm("service_wyy6y8e", "template_78ycnig", form)
           .then(() => {
             alert("✅ Email sent successfully!");
           })
