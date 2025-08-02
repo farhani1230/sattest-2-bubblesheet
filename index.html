@@ -78,16 +78,16 @@
     document.addEventListener("DOMContentLoaded", function () {
       const answerKey = {};
 
-      const rw1Answers = ["D", "B", "B", "D", "D", "A", "B", "B", "D", "D", "A", "A", "A", "C", "B", "D", "D", "B", "A", "C", "D", "D", "D", "C", "B", "D", "D", "C", "C", "B", "A", "B", "C"];
+      const rw1Answers = ["A", "D", "B", "B", "A", "A", "A", "C", "A", "A", "D", "D", "A", "B", "A", "B", "C", "D", "A", "D", "D", "C", "C", "A", "D", "D", "A", "D", "A", "C", "B", "C", "D"];
       for (let i = 1; i <= 33; i++) answerKey[`rw1_q${i}`] = rw1Answers[i - 1];
 
-      const rw2Answers = ["C", "D", "C", "B", "B", "C", "D", "C", "C", "C", "C", "C", "C", "D", "D", "B", "A", "D", "C", "A", "A", "C", "B", "A", "D", "B", "D", "A", "B", "C", "D", "B", "C"];
+      const rw2Answers = ["C", "D", "C", "D", "B", "A", "B", "B", "D", "B", "B", "D", "C", "C", "D", "D", "B", "B", "D", "D", "C", "C", "C", "A", "B", "D", "B", "D", "A", "D", "C", "A", "C"];
       for (let i = 1; i <= 33; i++) answerKey[`rw2_q${i}`] = rw2Answers[i - 1];
 
-      const math1Answers = ["A", "D", "D", "D", "A", "31", "11", "D", "B", "B", "A", "B", "1/2", "7.5", "B", "C", "D", "D", "D", "189/5", "-24", "D", "A", "C", "D", "A", "54"];
+      const math1Answers = ["B", "D", "B", "A", "D", "9", "14", "A", "B", "D", "C", "D", "294", "3", "A", "C", "B", "B", "D", "5", "87", "B", "A", "B", "C", "A", "-6.5"];
       for (let i = 1; i <= 27; i++) answerKey[`math1_q${i}`] = math1Answers[i - 1];
 
-      const math2Answers = ["B", "A", "B", "A", "B", "6", "10", "B", "A", "A", "D", "C", "774", "5", "B", "A", "D", "B", "A", "7/24", "1677", "B", "A", "D", "A", "A", "-28"];
+      const math2Answers = ["A", "B", "C", "A", "B", "2850", "2.75", "C", "C", "D", "D", "D", "4.41", "153", "C", "A", "A", "D", "B", "120", "1660", "B", "C", "B", "C", "B", "14"];
       for (let i = 1; i <= 27; i++) answerKey[`math2_q${i}`] = math2Answers[i - 1];
 
       function generateQuestions(count, containerId, prefix) {
